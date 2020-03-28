@@ -1,38 +1,86 @@
-.App {
-  text-align: center;
+
+.siteWrapper{
+  margin:0 auto;
+  max-width: 1080px;
+  width:100%;
+  padding:0 25px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.header{
+  background-color: white;
+  border:1px solid #aaa;
+  margin-top:30px;
+  padding:5px 10px;
+  display:flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: #61dafb;
+.leagueNav{
+  display:flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.leagueNav a{
+  display:block;
+  padding:0px 7px;
+  text-decoration:none;
+  font-size:1em;
+  font-size:bolder;
+  color:black;
+  border-bottom:1px solid transparent;
+  transition: all 0.5s ease;
+}
+
+.leagueNav a:hover{
+  border-bottom:1px solid black;
+}
+
+.matches{
+  margin:10px auto 0 auto;
+  max-width:1080px;
+  width:100%;
+  padding:10px;
+  background-color:white;
+  border:1px solid #aaa;
+}
+
+
+.weatherInfo{
+  display:flex;
+  flex-direction:column;
+  flex-wrap: nowrap;
+  align-items:center;
+}
+
+.weatherInfo_Image{
+  text-align: right;
+  font-size:7em;
+}
+
+.weatherInfo_Data{
+  text-align:center;
+}
+
+.weatherInfo_Data .currentTemperature{
+  min-width: 300px;
+}
+
+.weatherInfo_Data .currentTemperature p{
+  font-size:8em;
+  font-weight: bold;
+  line-height:1;
+  margin:0;
+}
+
+.weatherInfo_Data .otherTemperature{
+  display:flex;
+  align-items:center;
+  min-width: 300px;
+}
+
+.weatherInfo_Data .otherTemperature p{
+  flex-basis:50%;
+  margin-bottom:0;
+  font-size:1.5em;
+  line-height:1;
 }
