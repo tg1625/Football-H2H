@@ -1,4 +1,3 @@
-
 .siteWrapper{
   margin:0 auto;
   max-width: 1080px;
@@ -7,10 +6,14 @@
 }
 
 .header{
-  background-color: white;
-  border:1px solid #aaa;
-  margin-top:30px;
-  padding:5px 10px;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background-color:#fff;
+  /* margin-top:10px; */
+  padding:0 10px;
+  border-bottom:1px solid #bbb;
   display:flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +25,7 @@
 
 .leagueNav a{
   display:block;
-  padding:0px 7px;
+  padding:10px 30px;
   text-decoration:none;
   font-size:1em;
   font-size:bolder;
@@ -32,55 +35,90 @@
 }
 
 .leagueNav a:hover{
-  border-bottom:1px solid black;
+  border-bottom:1px solid #E6B000;
+}
+
+.leagueNav a img{
+  height:1.5em;
+}
+
+.mainWrapper{
+  margin:120px auto 50px auto;
+}
+
+.mainWrapper h1{
+  margin:0 auto;
+  font-size:3em;
+  text-align:center;
+  /* background-color: #fff; */
+  /* text-transform: uppercase; */
+}
+
+.mainWrapper h1::after{
+  content: "";
+    display: block;
+    margin: 5px auto 0;
+    height: 5px;
+    width: 45%;
+    background: #E6B000;
+    background-clip: padding-box;
 }
 
 .matches{
-  margin:10px auto 0 auto;
-  max-width:1080px;
   width:100%;
-  padding:10px;
+  padding:25px;
+}
+
+.matches .match{
+  margin:20px auto 0 auto;
+  padding:20px;
+  width:100%;
+  border:1px solid #bbb;
   background-color:white;
-  border:1px solid #aaa;
-}
-
-
-.weatherInfo{
   display:flex;
-  flex-direction:column;
-  flex-wrap: nowrap;
-  align-items:center;
+  align-items: center;
 }
 
-.weatherInfo_Image{
-  text-align: right;
-  font-size:7em;
-}
-
-.weatherInfo_Data{
+.matches .match .matchTime{
+  flex-basis:20%;
+  /* background-color:#ffbbbb; */
   text-align:center;
 }
 
-.weatherInfo_Data .currentTemperature{
-  min-width: 300px;
-}
-
-.weatherInfo_Data .currentTemperature p{
-  font-size:8em;
-  font-weight: bold;
-  line-height:1;
-  margin:0;
-}
-
-.weatherInfo_Data .otherTemperature{
+.matches .match .matchData{
+  flex-basis:80%;
+  /* background-color: #bbbbff; */
   display:flex;
-  align-items:center;
-  min-width: 300px;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
-.weatherInfo_Data .otherTemperature p{
-  flex-basis:50%;
-  margin-bottom:0;
-  font-size:1.5em;
-  line-height:1;
+.matches .match .matchData .matchHeading, .matches .match .matchData .matchOdds {
+  width:100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
+
+.matchHeading .team, .matchOdds .team{
+  flex-basis:48%;
+  text-align:center;
+}
+.matchHeading .vs, .matchOdds .vs{
+  flex-basis:2%;
+  min-width:25px;
+}
+
+.matchHeading .team img{width:100px;}
+.matchHeading .team h2{
+  margin:auto 0;
+  font-weight:normal;
+}
+
+.matchOdds .team{
+  font-size:1.5em;
+  font-weight:900;
+}
+

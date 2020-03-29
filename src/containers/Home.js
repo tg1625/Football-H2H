@@ -6,19 +6,12 @@ import {useHistory} from "react-router-dom";
 import Match from "../components/Match.js";
 
 
-//API Key
-const sportsKey = "";
+//Odds API Key
 const oddsKey = "39d1e7c2982a6d676981b51ce23459ba";
 
 function Home(){
-
+    /*--- URL Parameters ---*/
     const [league, setLeague] = useState(""); //URL search parameter
-    const [matchData, setMatchData] = useState({}); //match data
-    const [oddsData, setOddsData] = useState({}); //odds data 
-
-    const [matches, setSportsMatches] = useState([]);
-    const [odds, setOddsMatches] = useState([]);
-
     let history = useHistory();
     //get league from URL
     useEffect(() =>{
@@ -33,6 +26,7 @@ function Home(){
     }, [history])
 
 
+    /*--- API Calls ---*/
     const [leagueSportsID, setLeagueID] = useState(); //id for sports db 
     const [leagueOddsKey, setLeagueKey] = useState(""); //id for odds api 
     const [leagueOddsRegion, setLeagueRegion] = useState(""); //region for odds api 
@@ -67,7 +61,11 @@ function Home(){
         //console.log("League ", leagueSportsID, leagueOddsKey);
     }, [league])
 
-    //get sports API data
+
+
+    //get API data
+    const [matchData, setMatchData] = useState({}); //match data
+    const [oddsData, setOddsData] = useState({}); //odds data 
     useEffect(() =>{   
         if(leagueSportsID){
             axios.get(
@@ -82,28 +80,33 @@ function Home(){
                 console.log(error);
             })
         }
-        // if(leagueOddsKey){
-        //     axios.get(
-        //         `https://api.the-odds-api.com/v3/odds/?sport=${leagueOddsKey}&region=${leagueOddsRegion}&apiKey=${oddsKey}`
-        //         )
-        //     .then(function(response){
-        //         setOddsData(response.data);
-        //         console.log("Odds response", response.data);
-        //     })
-        //     .catch(function(error){
-        //         console.log(error);
-        //     })
-        // }   
-    }, [leagueSportsID, leagueOddsKey]);
+        if(leagueOddsKey){
+            axios.get(
+                `https://api.the-odds-api.com/v3/odds/?sport=${leagueOddsKey}&region=${leagueOddsRegion}&apiKey=${oddsKey}`
+                )
+            .then(function(response){
+                setOddsData(response.data);
+                // console.log("Odds response", response.data);
+                // console.log("Headers", response.headers);
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        }    
+    }, [leagueSportsID,leagueOddsKey, leagueOddsRegion]);
 
-    //get sports api matches 
+
+    //get matches data
+    const [matches, setSportsMatches] = useState([]);
+    const [odds, setOddsMatches] = useState([]);
     useEffect(() =>{
-        console.log("Updating match data");
         if(matchData){
-            //console.log("Match Data", matchData.events);
+            console.log("Updating match data");
+            console.log("Match Data", matchData.events);
             setSportsMatches(matchData.events);
         }
         if(oddsData){
+            console.log("Updating odds data");
             //console.log("Odds Data", oddsData.data);
             setOddsMatches(oddsData.data);
         }
@@ -112,10 +115,13 @@ function Home(){
  
 
     return(
-        <div className="matches">
-            {matches && matches.map((m,i) => (
-                <p><Match matchData={m} allOdds={odds}/></p>
-          ))}
+        <div className="mainWrapper">
+            <h1>{matches && matches[0] && matches[0].strLeague}</h1>
+            <div className="matches">
+                {matches && matches.map((m,i) => (
+                    <Match matchData={m} allOdds={odds} key={i}/>
+            ))}
+            </div>
         </div>
        
     );
