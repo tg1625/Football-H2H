@@ -50,8 +50,6 @@
   margin:0 auto;
   font-size:3em;
   text-align:center;
-  /* background-color: #fff; */
-  /* text-transform: uppercase; */
 }
 
 .mainWrapper h1::after{
@@ -81,13 +79,11 @@
 
 .matches .match .matchTime{
   flex-basis:20%;
-  /* background-color:#ffbbbb; */
   text-align:center;
 }
 
 .matches .match .matchData{
   flex-basis:80%;
-  /* background-color: #bbbbff; */
   display:flex;
   flex-direction: column;
   align-items: center;

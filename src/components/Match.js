@@ -3,8 +3,6 @@ import axios from 'axios';
 import MatchOdds from './MatchOdds.js';
 
 function Match({matchData,allOdds}){
-
-    console.log("Match is", matchData);
     //find odds for this match 
     let odds; 
     if(allOdds){
@@ -54,6 +52,8 @@ function Match({matchData,allOdds}){
             setHomeImg(homeData.teams[0].strTeamBadge);
         if(awayData.teams)
             setAwayImg(awayData.teams[0].strTeamBadge);
+        console.log("Match is", matchData);
+        console.log("Odds", odds);
     }, [homeData, awayData]);
 
 

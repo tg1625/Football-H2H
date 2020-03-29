@@ -2,7 +2,6 @@ import React from 'react';
 
 
 function MatchOdds({odds}){
-    console.log("Odds", odds);
     //if(odds == null || odds.sites_count == 0){//no odds available, comment for sample odds 
     if(odds === 'null'){ //uncomment for sample odds 
         return(

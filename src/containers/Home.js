@@ -101,18 +101,17 @@ function Home(){
     const [odds, setOddsMatches] = useState([]);
     useEffect(() =>{
         if(matchData){
-            console.log("Updating match data");
-            console.log("Match Data", matchData.events);
+            //console.log("Updating match data");
+            //console.log("Match Data", matchData.events);
             setSportsMatches(matchData.events);
         }
         if(oddsData){
-            console.log("Updating odds data");
+            //console.log("Updating odds data");
             //console.log("Odds Data", oddsData.data);
             setOddsMatches(oddsData.data);
         }
     }, [matchData, oddsData]);
 
- 
 
     return(
         <div className="mainWrapper">
