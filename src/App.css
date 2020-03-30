@@ -1,12 +1,13 @@
 .siteWrapper{
   margin:0 auto;
-  max-width: 1080px;
+  max-width: 768px;
   width:100%;
   padding:0 25px;
 }
 
 .header{
   position:fixed;
+  z-index:999999;
   top:0;
   left:0;
   width:100%;
@@ -78,12 +79,16 @@
 }
 
 .matches .match .matchTime{
-  flex-basis:20%;
+  flex-basis:25%;
   text-align:center;
 }
 
+.matches .match .matchTime h2{
+  font-weight:normal;
+}
+
 .matches .match .matchData{
-  flex-basis:80%;
+  flex-basis:75%;
   display:flex;
   flex-direction: column;
   align-items: center;
@@ -118,3 +123,59 @@
   font-weight:900;
 }
 
+/* Calendar Icon Styling
+      Credit: @craigbuckler
+*/
+
+time.icon
+{
+  font-size: 1em; /* change icon size */
+  display: block;
+  position: relative;
+  width: 7em;
+  height: 7em;
+  background-color: #fff;
+  margin: 2em auto;
+  border-radius: 0.6em;
+  box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+  overflow: hidden;
+  z-index:99;
+}
+
+time.icon *
+{
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+time.icon strong
+{
+  position: absolute;
+  top: 0;
+  padding: 0.4em 0;
+  color: #fff;
+  background-color: #E6B000;
+  border-bottom: 1px solid #bbb;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+time.icon em
+{
+  position: absolute;
+  bottom: 0.3em;
+  color: #E6B000;
+}
+
+time.icon span
+{
+  width: 100%;
+  font-size: 2.8em;
+  letter-spacing: -0.05em;
+  padding-top: 0.8em;
+  color: #2f2f2f;
+}

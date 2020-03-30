@@ -1,18 +1,24 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import MatchOdds from './MatchOdds.js';
+import MatchTime from './MatchTime.js';
 
 function Match({matchData,allOdds}){
     //find odds for this match 
-    let odds; 
-    if(allOdds){
-        for(var i = 0; i < allOdds.length; i++){
-            if(allOdds[i].home_team === matchData.strHomeTeam){
-                odds = allOdds[i];
-                break;
+    const [odds, setOdds] = useState();
+    useEffect(() =>{
+        if(allOdds){
+            for(var i = 0; i < allOdds.length; i++){
+                if(allOdds[i].home_team === matchData.strHomeTeam){
+                    setOdds(allOdds[i]);
+                    break;
+                }
             }
+            //console.log("Match is", matchData);
+            //console.log("Odds", odds);
         }
-    }
+    }, [allOdds, matchData]);
+    
 
     /*--- Getting images for each team --- */
     const [homeData, setHomeData] = useState({});
@@ -52,17 +58,12 @@ function Match({matchData,allOdds}){
             setHomeImg(homeData.teams[0].strTeamBadge);
         if(awayData.teams)
             setAwayImg(awayData.teams[0].strTeamBadge);
-        console.log("Match is", matchData);
-        console.log("Odds", odds);
     }, [homeData, awayData]);
 
 
     return(
         <div className="match">
-            <div className="matchTime">
-                <h2>{matchData.strDate}</h2>
-                <p>{matchData.strTime}</p>
-            </div>
+            <MatchTime d={matchData.dateEvent} t={matchData.strTime}/>
             <div className="matchData">
                 <div className="matchHeading">
                     <div className="team">

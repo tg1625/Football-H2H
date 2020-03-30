@@ -11,11 +11,12 @@ const oddsKey = "39d1e7c2982a6d676981b51ce23459ba";
 
 function Home(){
     /*--- URL Parameters ---*/
-    const [league, setLeague] = useState(""); //URL search parameter
+    const [league, setLeague] = useState(); //URL search parameter
     let history = useHistory();
     //get league from URL
     useEffect(() =>{
-        //get search parameters
+        if(history){
+            //get search parameters
         let searchParams = history.location.search;
         const urlParams = new URLSearchParams(searchParams);
         let league = urlParams.get("league");
@@ -23,42 +24,45 @@ function Home(){
             setLeague(league);
         }
         //console.log("League is", league);
+        }
     }, [history])
 
 
     /*--- API Calls ---*/
     const [leagueSportsID, setLeagueID] = useState(); //id for sports db 
-    const [leagueOddsKey, setLeagueKey] = useState(""); //id for odds api 
-    const [leagueOddsRegion, setLeagueRegion] = useState(""); //region for odds api 
+    const [leagueOddsKey, setLeagueKey] = useState(); //id for odds api 
+    const [leagueOddsRegion, setLeagueRegion] = useState(); //region for odds api 
     //set up correct API calls 
     useEffect(() =>{
         //console.log("Testing", league);
-        switch(league){
-            case 'EPL':
-                setLeagueID(4328);
-                setLeagueKey("soccer_epl");
-                setLeagueRegion("uk");
-                break;
-            case 'LL':
-                setLeagueID(4335);
-                setLeagueKey("soccer_spain_la_liga");
-                setLeagueRegion("eu");
-                break;
-            case 'BDL':
-                setLeagueID(4331);
-                setLeagueKey("soccer_germany_bundesliga");
-                setLeagueRegion("eu");
-                break;
-            case 'MLS':
-                setLeagueID(4346);
-                setLeagueKey("soccer_usa_mls");
-                setLeagueRegion("us");
-                break;
-            default:
-                setLeagueID(1);
-                setLeagueKey("soccer");
+        if(league){
+            switch(league){
+                case 'EPL':
+                    setLeagueID(4328);
+                    setLeagueKey("soccer_epl");
+                    setLeagueRegion("uk");
+                    break;
+                case 'LL':
+                    setLeagueID(4335);
+                    setLeagueKey("soccer_spain_la_liga");
+                    setLeagueRegion("eu");
+                    break;
+                case 'BDL':
+                    setLeagueID(4331);
+                    setLeagueKey("soccer_germany_bundesliga");
+                    setLeagueRegion("eu");
+                    break;
+                case 'MLS':
+                    setLeagueID(4346);
+                    setLeagueKey("soccer_usa_mls");
+                    setLeagueRegion("us");
+                    break;
+                default:
+                    setLeagueID(1);
+                    setLeagueKey("soccer");
+            }
+            //console.log("League ", leagueSportsID, leagueOddsKey);
         }
-        //console.log("League ", leagueSportsID, leagueOddsKey);
     }, [league])
 
 
