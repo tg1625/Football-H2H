@@ -1,38 +1,220 @@
-.App {
+.siteWrapper{
+  margin:0 auto;
+  max-width: 768px;
+  width:100%;
+  padding:0 25px;
+}
+
+.header{
+  position:fixed;
+  z-index:999999;
+  top:0;
+  left:0;
+  width:100%;
+  background-color:#fff;
+  /* margin-top:10px; */
+  padding:0 10px;
+  border-bottom:1px solid #bbb;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header a{
+  border-bottom:1px solid transparent;
+  transition: all 0.5s ease;
+}
+
+.header a:hover{
+  border-bottom:1px solid #E6B000;
+}
+
+.header .title{
+  font-size: 1.5em;
+  margin:1em 0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.leagueNav{
+  display:flex;
+}
+
+.leagueNav a{
+  display:block;
+  padding:10px 30px;
+  text-decoration:none;
+  font-size:1em;
+  font-size:bolder;
+  color:black;
+}
+
+.leagueNav a img{
+  height:1.5em;
+}
+
+.mainWrapper{
+  margin:120px auto 50px auto;
+}
+
+.mainWrapper h1{
+  margin:0 auto;
+  font-size:3em;
+  text-align:center;
+}
+
+.mainWrapper h1::after{
+  content: "";
+    display: block;
+    margin: 5px auto 0;
+    height: 5px;
+    width: 45%;
+    background: #E6B000;
+    background-clip: padding-box;
+}
+
+
+.homeNav {
+  width:100%;
+  display:flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.homeNav a{
+  flex-basis:24%;
+  background-color: #fff;
+  min-height:280px;
+  padding:20px;
+  box-shadow:0px 0px #E6B000;
+  text-align:center;
+  text-decoration: none;
+  border:1px solid #bbb;
+  transition:all 0.3s ease-in-out;
+}
+
+.homeNav a:hover{
+  border:5px solid #E6B000;
+}
+
+.homeNav img{
+  width:100%;
+}
+
+.matches{
+  width:100%;
+  padding:25px;
+}
+
+.matches .match{
+  margin:20px auto 0 auto;
+  padding:20px;
+  width:100%;
+  border:1px solid #bbb;
+  background-color:white;
+  display:flex;
+  align-items: center;
+}
+
+.matches .match .matchTime{
+  flex-basis:25%;
+  text-align:center;
+}
+
+.matches .match .matchTime h2{
+  font-weight:normal;
+}
+
+.matches .match .matchData{
+  flex-basis:75%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.matches .match .matchData .matchHeading, .matches .match .matchData .matchOdds {
+  width:100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.matchHeading .team, .matchOdds .team{
+  flex-basis:48%;
+  text-align:center;
+}
+.matchHeading .vs, .matchOdds .vs{
+  flex-basis:2%;
+  min-width:25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.matchHeading .team img{width:100px;}
+.matchHeading .team h2{
+  margin:auto 0;
+  font-weight:normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.matchOdds .team{
+  font-size:1.5em;
+  font-weight:900;
 }
 
-.App-link {
-  color: #61dafb;
+/* Calendar Icon Styling
+      Credit: @craigbuckler
+*/
+
+time.icon
+{
+  font-size: 1em; /* change icon size */
+  display: block;
+  position: relative;
+  width: 7em;
+  height: 7em;
+  background-color: #fff;
+  margin: 2em auto;
+  border-radius: 0.6em;
+  box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+  overflow: hidden;
+  z-index:99;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+time.icon *
+{
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+time.icon strong
+{
+  position: absolute;
+  top: 0;
+  padding: 0.4em 0;
+  color: #fff;
+  background-color: #E6B000;
+  border-bottom: 1px solid #bbb;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+time.icon em
+{
+  position: absolute;
+  bottom: 0.3em;
+  color: #E6B000;
+}
+
+time.icon span
+{
+  width: 100%;
+  font-size: 2.8em;
+  letter-spacing: -0.05em;
+  padding-top: 0.8em;
+  color: #2f2f2f;
 }
