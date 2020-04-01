@@ -20,6 +20,22 @@
   justify-content: space-between;
 }
 
+.header a{
+  border-bottom:1px solid transparent;
+  transition: all 0.5s ease;
+}
+
+.header a:hover{
+  border-bottom:1px solid #E6B000;
+}
+
+.header .title{
+  font-size: 1.5em;
+  margin:1em 0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 .leagueNav{
   display:flex;
 }
@@ -31,12 +47,6 @@
   font-size:1em;
   font-size:bolder;
   color:black;
-  border-bottom:1px solid transparent;
-  transition: all 0.5s ease;
-}
-
-.leagueNav a:hover{
-  border-bottom:1px solid #E6B000;
 }
 
 .leagueNav a img{
@@ -61,6 +71,35 @@
     width: 45%;
     background: #E6B000;
     background-clip: padding-box;
+}
+
+
+.homeNav {
+  width:100%;
+  display:flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.homeNav a{
+  flex-basis:24%;
+  background-color: #fff;
+  min-height:280px;
+  padding:20px;
+  box-shadow:0px 0px #E6B000;
+  text-align:center;
+  text-decoration: none;
+  border:1px solid #bbb;
+  transition:all 0.3s ease-in-out;
+}
+
+.homeNav a:hover{
+  border:5px solid #E6B000;
+}
+
+.homeNav img{
+  width:100%;
 }
 
 .matches{

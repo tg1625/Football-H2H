@@ -117,17 +117,43 @@ function Home(){
     }, [matchData, oddsData]);
 
 
-    return(
-        <div className="mainWrapper">
-            <h1>{matches && matches[0] && matches[0].strLeague}</h1>
-            <div className="matches">
-                {matches && matches.map((m,i) => (
-                    <Match matchData={m} allOdds={odds} key={i}/>
-            ))}
+    if(league){
+        return(
+            <div className="mainWrapper">
+                <h1>{matches && matches[0] && matches[0].strLeague}</h1>
+                <div className="matches">
+                    {matches && matches.map((m,i) => (
+                        <Match matchData={m} allOdds={odds} key={i}/>
+                ))}
+                </div>
             </div>
-        </div>
-       
-    );
+           
+        );
+    }else{
+        return(
+            <div className="mainWrapper">
+                <div className="homeNav">
+                    <a href="/?league=EPL" title="English Premier League">
+                        <img src="https://www.thesportsdb.com/images/media/league/badge/i6o0kh1549879062.png" alt="English Premier League logo"/>
+                        <h3>Premier League</h3>
+                    </a>
+                    <a href="/?league=LL" title="Spanish La Liga">
+                        <img src="https://www.thesportsdb.com/images/media/league/badge/7onmyv1534768460.png" alt="Spanish La Liga Logo"/>
+                        <h3>La Liga</h3>
+                    </a>
+                    <a href="/?league=BDL" title="German Bundesliga">
+                        <img src="https://www.thesportsdb.com/images/media/league/badge/0j55yv1534764799.png" alt="German Bundesliga Logo"/>
+                        <h3>Bundesliga</h3>
+                        </a>
+                    <a href="/?league=MLS" title="American Major League Soccer">
+                        <img src="https://www.thesportsdb.com/images/media/league/badge/dqo6r91549878326.png" alt="American Major League Soccer Logo"/>
+                        <h3>Major League Soccer</h3>
+                    </a>
+                </div>
+            </div>
+        )
+    }
+
 }
 
 export default Home;

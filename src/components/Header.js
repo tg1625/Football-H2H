@@ -4,7 +4,7 @@ import React from 'react';
 function Header(){
     return(
         <header className="header">
-            <h2>Soccer Odds</h2>
+            <a className="title" href="/">Soccer Odds</a>
             <div className="leagueNav">
                 <a href="/?league=EPL" title="English Premier League"><img src="https://www.thesportsdb.com/images/media/league/badge/i6o0kh1549879062.png" alt="English Premier League logo"/></a>
                 <a href="/?league=LL" title="Spanish La Liga"><img src="https://www.thesportsdb.com/images/media/league/badge/7onmyv1534768460.png" alt="Spanish La Liga Logo"/></a>
