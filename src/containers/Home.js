@@ -5,10 +5,6 @@ import {useHistory} from "react-router-dom";
 
 import Match from "../components/Match.js";
 
-
-//Odds API Key
-const oddsKey = "39d1e7c2982a6d676981b51ce23459ba";
-
 function Home(){
     /*--- URL Parameters ---*/
     const [league, setLeague] = useState(); //URL search parameter
@@ -86,7 +82,7 @@ function Home(){
         }
         if(leagueOddsKey){
             axios.get(
-                `https://api.the-odds-api.com/v3/odds/?sport=${leagueOddsKey}&region=${leagueOddsRegion}&apiKey=${oddsKey}`
+                `https://api.the-odds-api.com/v3/odds/?sport=${leagueOddsKey}&region=${leagueOddsRegion}&apiKey=${process.env.REACT_APP_API_KEY}`
                 )
             .then(function(response){
                 setOddsData(response.data);
