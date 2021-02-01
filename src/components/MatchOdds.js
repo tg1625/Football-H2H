@@ -19,7 +19,7 @@ function MatchOdds({odds}){
         
         //setting text color based on odds 
         let homeTextColor, awayTextColor;
-        if (homeOdds < awayOdds){
+        if (homeOdds > awayOdds){
             homeTextColor = "#DB4D0B";
             awayTextColor = "#62B009";
         }else if(homeOdds === awayOdds){
