@@ -4,6 +4,7 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 
 import Match from "../components/Match.js";
+import NotFound from "../components/NotFound.js";
 
 function Home(){
     /*--- URL Parameters ---*/
@@ -95,7 +96,7 @@ function Home(){
         }    
     }, [leagueSportsID,leagueOddsKey, leagueOddsRegion]);
 
-
+    console.log(matchData);
     //get matches data
     const [matches, setSportsMatches] = useState([]);
     const [odds, setOddsMatches] = useState([]);
@@ -114,17 +115,25 @@ function Home(){
 
 
     if(league){
-        return(
-            <div className="mainWrapper">
-                <h1>{matches && matches[0] && matches[0].strLeague}</h1>
-                <div className="matches">
-                    {matches && matches.map((m,i) => (
-                        <Match matchData={m} allOdds={odds} key={i}/>
-                ))}
+        if(Object.keys(matchData).length !== 0){
+            return(
+                <div className="mainWrapper">
+                    <h1>{matches && matches[0] && matches[0].strLeague}</h1>
+                    <div className="matches">
+                        {matches && matches.map((m,i) => (
+                            <Match matchData={m} allOdds={odds} key={i}/>
+                    ))}
+                    </div>
                 </div>
-            </div>
-           
-        );
+            
+            );
+        }else{
+            return(
+                <div className = "mainWrapper">
+                    <NotFound />
+                </div> 
+            );
+        }
     }else{
         return(
             <div className="mainWrapper">
