@@ -78,7 +78,7 @@ function Home(){
                 //console.log("Data", matchData);
             })
             .catch(function(error){
-                console.log(error);
+                console.log(error);   
             })
         }
         if(leagueOddsKey){
