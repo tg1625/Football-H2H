@@ -66,7 +66,7 @@ function Home(){
 
     //get API data
     const [matchData, setMatchData] = useState({}); //match data
-    const [oddsData, setOddsData] = useState({}); //odds data 
+    const [oddsData, setOddsData] = useState({}); //odds data   
     useEffect(() =>{   
         if(leagueSportsID){
             axios.get(
