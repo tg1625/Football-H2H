@@ -10,6 +10,20 @@ function Home(){
     /*--- URL Parameters ---*/
     const [league, setLeague] = useState(); //URL search parameter
     let history = useHistory();
+
+    //axios request for Elena Sport API
+    const elenaRequests = axios.create({
+        baseURL: 'https://football.elenasport.io/v2/leagues/',
+        timeout: 5000,
+        headers: {Authorization: `Bearer ${process.env.REACT_APP_ELENA_ACCESS_TOKEN}`}
+    });
+    
+    // const [request, setRequest] = useState({});
+    // useEffect(() => {
+        
+    // }, []);
+
+
     //get league from URL
     useEffect(() =>{
         if(history){
@@ -35,22 +49,22 @@ function Home(){
         if(league){
             switch(league){
                 case 'EPL':
-                    setLeagueID(4328);
+                    setLeagueID(234);
                     setLeagueKey("soccer_epl");
                     setLeagueRegion("uk");
                     break;
                 case 'LL':
-                    setLeagueID(4335);
+                    setLeagueID(466);
                     setLeagueKey("soccer_spain_la_liga");
                     setLeagueRegion("eu");
                     break;
                 case 'BDL':
-                    setLeagueID(4331);
+                    setLeagueID(272);
                     setLeagueKey("soccer_germany_bundesliga");
                     setLeagueRegion("eu");
                     break;
                 case 'MLS':
-                    setLeagueID(4346);
+                    setLeagueID(507);
                     setLeagueKey("soccer_usa_mls");
                     setLeagueRegion("us");
                     break;
@@ -61,21 +75,19 @@ function Home(){
             //console.log("League ", leagueSportsID, leagueOddsKey);
         }
     }, [league])
-
-
+    
 
     //get API data
-    const [matchData, setMatchData] = useState({}); //match data
+    const [matchData, setMatchData] = useState([]); //match data
     const [oddsData, setOddsData] = useState({}); //odds data   
     useEffect(() =>{   
         if(leagueSportsID){
-            axios.get(
-                `https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=${leagueSportsID}`
+            elenaRequests.get(
+                `/${leagueSportsID}/seasons?expand=upcoming`
                 )
             .then(function(response){
-                setMatchData(response.data);
-                //console.log("Response", response.data);
-                //console.log("Data", matchData);
+                setMatchData(response.data.data);
+                console.log("Data", matchData);
             })
             .catch(function(error){
                 console.log(error);
@@ -96,44 +108,47 @@ function Home(){
         }    
     }, [leagueSportsID,leagueOddsKey, leagueOddsRegion]);
 
-    console.log(matchData);
     //get matches data
     const [matches, setSportsMatches] = useState([]);
     const [odds, setOddsMatches] = useState([]);
     useEffect(() =>{
-        if(matchData){
-            //console.log("Updating match data");
-            //console.log("Match Data", matchData.events);
-            setSportsMatches(matchData.events);
+        if(matchData.length !== 0){
+            setSportsMatches(matchData[0].expand.upcoming); 
+            console.log("Match Data", matches);
         }
         if(oddsData){
             //console.log("Updating odds data");
             //console.log("Odds Data", oddsData.data);
             setOddsMatches(oddsData.data);
         }
-    }, [matchData, oddsData]);
+    }, [matchData, oddsData, matches]);
 
 
     if(league){
-        if(Object.keys(matchData).length !== 0){
+        if(matchData.length !== 0){
             return(
                 <div className="mainWrapper">
-                    <h1>{matches && matches[0] && matches[0].strLeague}</h1>
+                    <h1>{matches && matches[0] && matches[0].leagueName}</h1>
                     <div className="matches">
                         {matches && matches.map((m,i) => (
                             <Match matchData={m} allOdds={odds} key={i}/>
                     ))}
                     </div>
-                </div>
+                </div> 
             
             );
         }else{
             return(
                 <div className = "mainWrapper">
-                    <NotFound />
+                    {/* <NotFound /> */}
                 </div> 
             );
         }
+        // return(
+        //             <div className = "mainWrapper">
+        //                 <NotFound />
+        //             </div> 
+        //         );
     }else{
         return(
             <div className="mainWrapper">
