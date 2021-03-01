@@ -11,7 +11,6 @@ function MatchTime({date}){
     useEffect(() => {
         if (date){
             let d = new Date(date);
-            console.log("Date:", d);
             let utc = d.getTime() + (d.getTimezoneOffset() * 60000);
             let newd = new Date(utc + (3600000*-5));
             setDateObject(new Date(newd));

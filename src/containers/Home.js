@@ -11,18 +11,6 @@ function Home(){
     const [league, setLeague] = useState(); //URL search parameter
     let history = useHistory();
 
-    //axios request for Elena Sport API
-    const elenaRequests = axios.create({
-        baseURL: 'https://football.elenasport.io/v2/leagues/',
-        timeout: 5000,
-        headers: {Authorization: `Bearer ${process.env.REACT_APP_ELENA_ACCESS_TOKEN}`}
-    });
-    
-    // const [request, setRequest] = useState({});
-    // useEffect(() => {
-        
-    // }, []);
-
 
     //get league from URL
     useEffect(() =>{
@@ -36,7 +24,7 @@ function Home(){
         }
         //console.log("League is", league);
         }
-    }, [history])
+    }, [history]);
 
 
     /*--- API Calls ---*/
@@ -74,58 +62,74 @@ function Home(){
             }
             //console.log("League ", leagueSportsID, leagueOddsKey);
         }
-    }, [league])
-    
+    }, [league]);
 
-    //get API data
-    const [matchData, setMatchData] = useState([]); //match data
-    const [oddsData, setOddsData] = useState({}); //odds data   
-    useEffect(() =>{   
-        if(leagueSportsID){
-            elenaRequests.get(
-                `/${leagueSportsID}/seasons?expand=upcoming`
-                )
-            .then(function(response){
-                setMatchData(response.data.data);
-                console.log("Data", matchData);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
-        }
-        if(leagueOddsKey){
-            axios.get(
-                `https://api.the-odds-api.com/v3/odds/?sport=${leagueOddsKey}&region=${leagueOddsRegion}&apiKey=${process.env.REACT_APP_API_KEY}`
-                )
-            .then(function(response){
-                setOddsData(response.data);
-                // console.log("Odds response", response.data);
-                // console.log("Headers", response.headers);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
-        }    
-    }, [leagueSportsID,leagueOddsKey, leagueOddsRegion]);
-
-    //get matches data
-    const [matches, setSportsMatches] = useState([]);
-    const [odds, setOddsMatches] = useState([]);
+    //set Access Token
+    const [elenaAccessToken, setToken] = useState('');
     useEffect(() =>{
-        if(matchData.length !== 0){
-            setSportsMatches(matchData[0].expand.upcoming); 
-            console.log("Match Data", matches);
+        if(!elenaAccessToken){
+            var queryString = require('query-string');
+            axios.post(
+                'https://oauth2.elenasport.io/oauth2/token',
+                queryString.stringify({'grant_type': 'client_credentials'}), 
+                {headers:
+                    {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Basic ${process.env.REACT_APP_ELENA_API_KEY}`
+                    }
+                }).then(function(response){
+                    // console.log(response);
+                    setToken(response.data.access_token);
+                    console.log("Token is", response.data.access_token);
+
+                }).catch(function(error){
+                    console.log(error);
+                });
         }
-        if(oddsData){
-            //console.log("Updating odds data");
-            //console.log("Odds Data", oddsData.data);
-            setOddsMatches(oddsData.data);
-        }
-    }, [matchData, oddsData, matches]);
+    }, [elenaAccessToken]);
 
 
+    //Get Data from APIs
+  
+    //get data from Elena API
+    const [matches, setSportsMatches] = useState([]);
+    useEffect(() =>{   
+        if(leagueSportsID && elenaAccessToken){ //upcoming match data
+            axios.get(
+                `https://football.elenasport.io/v2/leagues/${leagueSportsID}/seasons?expand=upcoming`
+                , {headers: {Authorization: `Bearer ${elenaAccessToken}`}})
+            .then(function(response){
+                console.log("Elena API", response.data.data);
+                setSportsMatches(response.data.data[0].expand.upcoming);
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        } 
+    }, [leagueSportsID, elenaAccessToken]);
+
+    //get data from the Odds Api
+    const [odds, setOddsMatches] = useState([]);
+    useEffect(() =>{   
+        if(leagueOddsKey && elenaAccessToken){
+            axios.get(
+                `https://api.the-odds-api.com/v3/odds/?sport=${leagueOddsKey}&region=${leagueOddsRegion}&apiKey=${process.env.REACT_APP_BACKUP_API_KEY}`
+                )
+            .then(function(response){
+                console.log("Odds API", response.data);
+                setOddsMatches(response.data.data);
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        }  
+    }, [leagueOddsKey, leagueOddsRegion, elenaAccessToken]);
+
+
+
+    /*Returning things */
     if(league){
-        if(matchData.length !== 0){
+        if(matches.length !== 0){
             return(
                 <div className="mainWrapper">
                     <h1>{matches && matches[0] && matches[0].leagueName}</h1>
@@ -137,18 +141,21 @@ function Home(){
                 </div> 
             
             );
-        }else{
+        }
+        // else if(matchData.length == 0){
+        //     return(
+        //         <div className = "mainWrapper">
+        //             <h2>No Matches Found</h2>
+        //         </div> 
+        //     );
+        // }
+        else{
             return(
                 <div className = "mainWrapper">
                     {/* <NotFound /> */}
                 </div> 
             );
         }
-        // return(
-        //             <div className = "mainWrapper">
-        //                 <NotFound />
-        //             </div> 
-        //         );
     }else{
         return(
             <div className="mainWrapper">
